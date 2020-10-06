@@ -558,7 +558,7 @@ results_table_R4 <- data.frame()
 for (i in 1:nrow(models)) {
   model_name <- paste0(models[[i, 2]], "_R4") # generate the model name
   LMM <- glmer(R4 ~ cond + (1 | subj) + (1 | item), 
-               family = Gamma(link = "identity"), 
+               family = Gamma(link = "log"), 
                data = models[[i, 1]]) # build the model
   assign(model_name, LMM) # assign the model with the model name
   
@@ -579,7 +579,7 @@ results_table_R5 <- data.frame()
 for (i in 1:nrow(models)) {
   model_name <- paste0(models[[i, 2]], "_R5")
   LMM <- glmer(R5 ~ cond + (1 | subj) + (1 | item), 
-               family = Gamma(link = "identity"), 
+               family = Gamma(link = "log"), 
                data = models[[i, 1]])
   assign(model_name, LMM)
   
@@ -612,7 +612,7 @@ write_csv(table_name, file.path("model_summary"))
 # R4 loop
 for (i in 1:nrow(models)) {
   maximal <- buildmer(R4 ~ cond + (1 + cond | subj) + (1 + cond | item), 
-                      family = Gamma(link = "identity"), 
+                      family = Gamma(link = "log"), 
                       data = models[[i, 1]])
   fm <- formula(maximal)
   resultsList <- append(resultsList, fm)
@@ -621,7 +621,7 @@ for (i in 1:nrow(models)) {
 # R5 loop
 for (i in 1:nrow(models)) {
   maximal <- buildmer(R5 ~ cond + (1 + cond | subj) + (1 + cond | item), 
-                      family = Gamma(link = "identity"), 
+                      family = Gamma(link = "log"), 
                       data = models[[i, 1]])
   fm <- formula(maximal)
   resultsList <- append(resultsList, fm)
